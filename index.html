@@ -621,70 +621,159 @@
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* ===== VITRINE PROMO BLOCK ===== */
+    .vitrine-promo {
+      max-width: 1100px;
+      margin: 56px auto 0;
+      background: linear-gradient(135deg, #0A0A0A 0%, #1A1200 50%, #0A0A0A 100%);
+      border: 1px solid rgba(212,175,55,0.35);
+      border-radius: 16px;
+      padding: 48px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .vitrine-promo-tag {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .vitrine-promo-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(22px, 3.5vw, 42px);
+      font-weight: 900;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 14px;
+    }
+    .vitrine-promo-desc {
+      font-size: 15px;
+      color: rgba(255,255,255,0.46);
+      max-width: 480px;
+      line-height: 1.75;
+    }
+    .vitrine-promo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: var(--black);
+      font-size: 14px;
+      font-weight: 800;
+      padding: 16px 36px;
+      border-radius: 6px;
+      white-space: nowrap;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .vitrine-promo-btn:hover { background: var(--accent-dark); }
+
     /* ===== RESPONSIVE ===== */
-    @media (min-width: 1280px) {
-      .dif-grid { grid-template-columns: repeat(3, 1fr); }
+
+    /* Widescreen 1440px+ */
+    @media (min-width: 1440px) {
+      header { padding: 0 64px; }
+      .section { padding: 120px 40px; }
+      .stats-bar { padding: 56px 40px; }
     }
 
+    /* Small desktop / tablet paisagem ≤1023px */
     @media (max-width: 1023px) {
       header { padding: 0 28px; }
-      .sobre-wrap { grid-template-columns: 1fr; gap: 48px; }
+      .sobre-wrap { grid-template-columns: 1fr; gap: 40px; }
       .mvv-stack { flex-direction: row; flex-wrap: wrap; }
       .mvv-stack .mvv-card { flex: 1 1 200px; }
       .dif-grid { grid-template-columns: 1fr 1fr; }
       .veic-grid { grid-template-columns: 1fr 1fr; }
-      #hero, #sobre, #veiculos, #contato {
-        background-attachment: scroll, scroll;
-      }
+      .section { padding: 80px 24px; }
+      /* Desativa parallax — bug iOS/Android */
+      #hero { background-attachment: scroll, scroll; }
     }
 
+    /* Tablet retrato ≤768px */
     @media (max-width: 768px) {
       nav { display: none; }
       .hamburger { display: flex; }
       header { height: 64px; padding: 0 20px; }
       #navMenu { top: 64px; }
       #hero { padding-top: 64px; }
-      .hero-inner { padding: 20px 20px 60px; }
-      .hero-logo { height: 190px; margin-bottom: 28px; }
-      .hero-btns { flex-direction: column; align-items: center; }
-      .btn-gold, .btn-outline-white { width: 100%; max-width: 320px; justify-content: center; }
-      .stats-bar { padding: 36px 20px; }
-      .stats-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 16px; }
-      .section { padding: 72px 20px; }
-      .sec-center { margin-bottom: 48px; }
+      .hero-inner { padding: 20px 20px 56px; }
+      .hero-logo { height: 190px !important; margin-bottom: 24px; }
+      .hero-badge { font-size: 10px; padding: 5px 13px; letter-spacing: 0.1em; }
+      .hero-btns { flex-direction: column; align-items: center; gap: 10px; }
+      .btn-gold,
+      .btn-outline-white { width: 100%; max-width: 300px; justify-content: center; }
+      .stats-bar { padding: 32px 20px; }
+      .stats-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 16px; }
+      .stat-num { font-size: clamp(28px, 6vw, 44px); }
+      .section { padding: 64px 20px; }
+      .sec-center { margin-bottom: 44px; }
       .sobre-highlights { grid-template-columns: 1fr 1fr; }
+      .mvv-stack { flex-direction: column; }
+      .mvv-stack .mvv-card { flex: unset; }
       .dif-grid { grid-template-columns: 1fr 1fr; }
       .veic-grid { grid-template-columns: 1fr; }
+      .veic-img { height: 200px; }
       .contato-grid { grid-template-columns: 1fr; }
       .contato-card.full { grid-column: span 1; }
+      .vitrine-promo { padding: 36px 28px; }
+      .vitrine-promo-btn { width: 100%; justify-content: center; flex-shrink: unset; }
       .wa-float { bottom: 20px; right: 16px; width: 50px; height: 50px; }
     }
 
+    /* Mobile ≤480px */
     @media (max-width: 480px) {
       header { padding: 0 16px; }
       .header-logo img { height: 38px; }
-      .hero-inner { padding: 14px 16px 52px; }
-      .hero-logo { height: 150px; margin-bottom: 22px; }
-      .stats-inner { gap: 20px 12px; }
-      .section { padding: 56px 16px; }
-      .sec-center { margin-bottom: 40px; }
+      .hero-inner { padding: 12px 16px 48px; }
+      .hero-logo { height: 150px !important; margin-bottom: 18px; }
+      .hero-badge { font-size: 9.5px; padding: 5px 10px; gap: 6px; }
+      .stats-bar { padding: 28px 16px; }
+      .stats-inner { gap: 18px 10px; }
+      .stat-num { font-size: clamp(24px, 7vw, 34px); }
+      .section { padding: 52px 16px; }
+      .sec-center { margin-bottom: 36px; }
       .sobre-highlights { grid-template-columns: 1fr 1fr; }
+      .hl-num { font-size: 22px; }
+      .hl-card { padding: 18px; }
       .dif-grid { grid-template-columns: 1fr; }
-      .dif-card { padding: 28px 22px; }
+      .dif-card { padding: 26px 20px; }
       .veic-grid { grid-template-columns: 1fr; }
-      .btn-whatsapp { font-size: 14px; padding: 14px 28px; width: 100%; justify-content: center; }
+      .veic-img { height: 180px; }
+      .vitrine-promo { padding: 28px 20px; }
+      .vitrine-promo-title { font-size: clamp(20px, 5.5vw, 28px); }
+      .btn-whatsapp { font-size: 14px; padding: 14px 24px; width: 100%; justify-content: center; }
+      .social-links { flex-wrap: wrap; justify-content: center; gap: 12px; }
       .wa-float { bottom: 16px; right: 12px; width: 48px; height: 48px; }
     }
 
+    /* Mobile pequeno ≤360px */
     @media (max-width: 360px) {
       header { padding: 0 12px; }
       .header-logo img { height: 32px; }
-      .hero-inner { padding: 10px 14px 44px; }
-      .hero-logo { height: 120px; }
-      .section { padding: 48px 14px; }
+      .hero-inner { padding: 8px 14px 40px; }
+      .hero-logo { height: 120px !important; margin-bottom: 14px; }
+      .hero-badge { font-size: 9px; padding: 4px 9px; }
+      .stats-inner { gap: 16px 8px; }
+      .stat-num { font-size: clamp(22px, 7.5vw, 30px); }
+      .section { padding: 44px 14px; }
       .sobre-highlights { grid-template-columns: 1fr; }
-      .hl-card { padding: 16px; }
-      .dif-card { padding: 24px 16px; }
+      .hl-card { padding: 14px; }
+      .hl-num { font-size: 20px; }
+      .dif-card { padding: 22px 14px; }
+      .veic-img { height: 160px; }
+      .vitrine-promo { padding: 22px 14px; }
+      .vitrine-promo-desc { font-size: 13px; }
     }
 
     /* ===== EFEITOS & ANIMAÇÕES ===== */
@@ -1056,13 +1145,13 @@
   </div>
 
   <!-- Bloco Vitrine -->
-  <div style="max-width:1100px;margin:56px auto 0;background:linear-gradient(135deg,#0A0A0A 0%,#1A1200 50%,#0A0A0A 100%);border:1px solid rgba(212,175,55,0.35);border-radius:16px;padding:48px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+  <div class="vitrine-promo">
     <div>
-      <p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--accent);margin-bottom:12px;">Catálogo digital</p>
-      <h3 style="font-family:'Montserrat',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.02em;line-height:1.05;margin-bottom:14px;">Veja nosso estoque<br>completo online</h3>
-      <p style="font-size:15px;color:rgba(255,255,255,0.46);max-width:480px;line-height:1.75;">Acesse nossa vitrine digital e confira todos os veículos disponíveis com detalhes, fotos e preços atualizados em tempo real. Simples, rápido e sem precisar sair de casa.</p>
+      <p class="vitrine-promo-tag">Catálogo digital</p>
+      <h3 class="vitrine-promo-title">Veja nosso estoque<br>completo online</h3>
+      <p class="vitrine-promo-desc">Acesse nossa vitrine digital e confira todos os veículos disponíveis com detalhes, fotos e preços atualizados em tempo real. Simples, rápido e sem precisar sair de casa.</p>
     </div>
-    <a href="vitrine.html" style="display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:var(--black);font-size:14px;font-weight:800;padding:16px 36px;border-radius:6px;white-space:nowrap;text-decoration:none;text-transform:uppercase;letter-spacing:0.05em;transition:background 0.2s;flex-shrink:0;" onmouseover="this.style.background='#B8962A'" onmouseout="this.style.background='#D4AF37'">
+    <a href="vitrine.html" class="vitrine-promo-btn">
       <i class="fas fa-store"></i> Acessar vitrine agora
     </a>
   </div>
