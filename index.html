@@ -687,6 +687,77 @@
       .dif-card { padding: 24px 16px; }
     }
 
+    /* ===== EFEITOS & ANIMAÇÕES ===== */
+
+    /* Entrada hero */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(34px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    /* Logo flutua suavemente */
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0);    filter: drop-shadow(0 0 40px rgba(212,175,55,0.22)); }
+      50%       { transform: translateY(-10px); filter: drop-shadow(0 0 72px rgba(212,175,55,0.46)); }
+    }
+    /* Pulse no ponto do badge */
+    @keyframes dotPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.7); }
+    }
+    /* Shimmer dourado no título accent */
+    @keyframes textShimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+    /* Glow pulsante atrás da logo */
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.55; transform: translate(-50%,-50%) scale(1); }
+      50%       { opacity: 0.9;  transform: translate(-50%,-50%) scale(1.18); }
+    }
+
+    /* Classes de atraso da entrada hero */
+    .anim-2 { animation: fadeUp 0.78s cubic-bezier(0.22,1,0.36,1) 0.22s both; }
+    .anim-3 { animation: fadeUp 0.78s cubic-bezier(0.22,1,0.36,1) 0.38s both; }
+    .anim-4 { animation: fadeUp 0.78s cubic-bezier(0.22,1,0.36,1) 0.52s both; }
+    .anim-5 { animation: fadeUp 0.78s cubic-bezier(0.22,1,0.36,1) 0.66s both; }
+
+    /* Logo: entra + flutua */
+    .hero-logo {
+      animation:
+        fadeUp    0.78s cubic-bezier(0.22,1,0.36,1) 0.05s both,
+        logoFloat 5.2s  ease-in-out                 0.88s infinite;
+    }
+    /* Badge dot */
+    .badge-dot { animation: dotPulse 2.4s ease-in-out infinite; }
+
+    /* Shimmer no "Multimarcas" */
+    .hero-title .accent {
+      background: linear-gradient(
+        90deg,
+        var(--accent) 0%,
+        #F7E87A 30%,
+        #C8A020 50%,
+        #F7E87A 70%,
+        var(--accent) 100%
+      );
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: textShimmer 4s linear infinite;
+    }
+
+    /* Glow hero pulsante */
+    .hero-glow { animation: glowPulse 4s ease-in-out infinite; }
+
+    /* Divider grow-in */
+    .divider {
+      width: 0;
+      transition: width 0.7s cubic-bezier(0.22,1,0.36,1) 0.2s;
+    }
+    .divider.visible { width: 44px; }
+    .divider.center.visible { margin-left: auto; margin-right: auto; }
+
     /* ===== MODAL WHATSAPP ===== */
     .wa-modal-overlay {
       position: fixed;
@@ -805,13 +876,13 @@
   <div class="hero-overlay-lines"></div>
   <div class="hero-inner">
     <img src="images/logo.png" alt="VPR Multimarcas" class="hero-logo">
-    <div class="hero-badge">
+    <div class="hero-badge anim-2">
       <span class="badge-dot"></span>
       Mais de 10 anos no mercado automotivo
     </div>
-    <h1 class="hero-title">VPR <span class="accent">Multimarcas</span></h1>
-    <h2 class="hero-subtitle">Seu próximo veículo está aqui</h2>
-    <div class="hero-btns">
+    <h1 class="hero-title anim-3">VPR <span class="accent">Multimarcas</span></h1>
+    <h2 class="hero-subtitle anim-4">Seu próximo veículo está aqui</h2>
+    <div class="hero-btns anim-5">
       <a href="javascript:void(0)" onclick="openWA('Olá! Gostaria de mais informações sobre os veículos da VPR Multimarcas.');" class="btn-gold">
         <i class="fab fa-whatsapp"></i> Falar no WhatsApp
       </a>
@@ -1137,11 +1208,72 @@
     if (e.key === 'Escape') closeWAModal();
   });
 
-  // ===== REVEAL =====
+  // ===== PARALLAX HERO =====
+  const heroEl = document.getElementById('hero');
+  window.addEventListener('scroll', () => {
+    const s = window.pageYOffset;
+    if (heroEl && s < window.innerHeight * 1.4) {
+      heroEl.style.backgroundPosition =
+        'center top, center calc(50% + ' + (s * 0.28) + 'px)';
+    }
+  }, { passive: true });
+
+  // ===== CONTADOR STATS =====
+  function animateCount(el, target, prefix, suffix) {
+    const dur = 1800;
+    let start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      const prog = Math.min((ts - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - prog, 3);
+      el.textContent = prefix + Math.floor(eased * target) + suffix;
+      if (prog < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // ===== STAGGER NOS GRIDS =====
+  ['.dif-grid', '.veic-grid', '.sobre-highlights', '.stats-inner', '.mvv-stack', '.contato-grid'].forEach(sel => {
+    const grid = document.querySelector(sel);
+    if (!grid) return;
+    grid.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = (i * 0.09) + 's';
+    });
+  });
+
+  // ===== REVEAL + DIVIDER + CONTADOR =====
+  const statsAnimated = new Set();
+  const statEms = document.querySelectorAll('.stat-num em');
+
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+
+      // reveal normal
+      if (el.classList.contains('reveal')) {
+        el.classList.add('visible');
+      }
+      // dividers
+      if (el.classList.contains('divider')) {
+        el.classList.add('visible');
+      }
+
+      // contador ao entrar na stats-bar
+      if (el.classList.contains('stat') && !statsAnimated.has(el)) {
+        statsAnimated.add(el);
+        const em = el.querySelector('em');
+        if (!em) return;
+        const txt = em.textContent.trim();
+        if (txt === '10')    { animateCount(em, 10,  '',  '');   }
+        else if (txt === '100%') { animateCount(em, 100, '',  '%'); }
+        else if (txt === '500')  { animateCount(em, 500, '',  '');  }
+        // emoji (🇧🇷) — não anima
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal, .divider, .stat').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
