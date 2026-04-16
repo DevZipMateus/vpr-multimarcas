@@ -781,6 +781,7 @@
     <a href="#sobre">Sobre</a>
     <a href="#diferenciais">Diferenciais</a>
     <a href="#veiculos">Veículos</a>
+    <a href="vitrine.html" style="color:var(--accent);font-weight:700;">Vitrine</a>
     <a href="#contato" class="nav-cta">Fale conosco</a>
   </nav>
   <button class="hamburger" id="menuBtn" aria-label="Menu">
@@ -792,6 +793,7 @@
   <a href="#sobre"        onclick="closeMenu()">Sobre</a>
   <a href="#diferenciais" onclick="closeMenu()">Diferenciais</a>
   <a href="#veiculos"     onclick="closeMenu()">Veículos</a>
+  <a href="vitrine.html"  onclick="closeMenu()" style="color:var(--accent);font-weight:700;">Vitrine</a>
   <a href="#contato"      onclick="closeMenu()">Contato</a>
   <a href="javascript:void(0)" onclick="closeMenu(); openWA('Olá! Gostaria de mais informações sobre os veículos da VPR Multimarcas.');" class="mob-cta">
     <i class="fab fa-whatsapp"></i> Falar no WhatsApp
@@ -815,6 +817,9 @@
       </a>
       <a href="#veiculos" class="btn-outline-white">
         <i class="fas fa-car"></i> Ver veículos
+      </a>
+      <a href="vitrine.html" class="btn-outline-white" style="border-color:rgba(212,175,55,0.5);color:var(--accent);">
+        <i class="fas fa-store"></i> Acessar vitrine
       </a>
     </div>
   </div>
@@ -976,6 +981,18 @@
   <div style="text-align:center; margin-top: 52px;">
     <a href="javascript:void(0)" onclick="openWA('Olá! Gostaria de ver o estoque completo de veículos da VPR Multimarcas.');" class="btn-gold" style="display:inline-flex;">
       <i class="fas fa-car"></i> Ver estoque completo
+    </a>
+  </div>
+
+  <!-- Bloco Vitrine -->
+  <div style="max-width:1100px;margin:56px auto 0;background:linear-gradient(135deg,#0A0A0A 0%,#1A1200 50%,#0A0A0A 100%);border:1px solid rgba(212,175,55,0.35);border-radius:16px;padding:48px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+    <div>
+      <p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--accent);margin-bottom:12px;">Catálogo digital</p>
+      <h3 style="font-family:'Montserrat',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.02em;line-height:1.05;margin-bottom:14px;">Veja nosso estoque<br>completo online</h3>
+      <p style="font-size:15px;color:rgba(255,255,255,0.46);max-width:480px;line-height:1.75;">Acesse nossa vitrine digital e confira todos os veículos disponíveis com detalhes, fotos e preços atualizados em tempo real. Simples, rápido e sem precisar sair de casa.</p>
+    </div>
+    <a href="vitrine.html" style="display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:var(--black);font-size:14px;font-weight:800;padding:16px 36px;border-radius:6px;white-space:nowrap;text-decoration:none;text-transform:uppercase;letter-spacing:0.05em;transition:background 0.2s;flex-shrink:0;" onmouseover="this.style.background='#B8962A'" onmouseout="this.style.background='#D4AF37'">
+      <i class="fas fa-store"></i> Acessar vitrine agora
     </a>
   </div>
 </section>

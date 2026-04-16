@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VPR Multimarcas — Vitrine de Veículos</title>
+  <meta name="description" content="Confira o estoque completo da VPR Multimarcas. Veículos multimarcas com preços atualizados e disponibilidade em tempo real.">
+
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --black:      #0A0A0A;
+      --black-card: #1A1A1A;
+      --white:      #FFFFFF;
+      --accent:     #D4AF37;
+      --accent-dark:#B8962A;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Open Sans', -apple-system, sans-serif;
+      background: var(--black);
+    }
+    a { text-decoration: none; }
+
+    /* ===== HEADER ===== */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: 80px;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10,10,10,0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .header-logo img { height: 50px; width: auto; }
+
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a {
+      color: rgba(255,255,255,0.65);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--white); }
+    .nav-vitrine-active {
+      color: var(--accent) !important;
+      font-weight: 700 !important;
+    }
+    .nav-cta {
+      background: var(--accent) !important;
+      color: var(--black) !important;
+      padding: 9px 22px !important;
+      border-radius: 4px;
+      font-weight: 700 !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--accent-dark) !important; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    #navMenu {
+      display: none;
+      position: fixed;
+      top: 80px; left: 0; right: 0;
+      background: rgba(10,10,10,0.99);
+      backdrop-filter: blur(20px);
+      padding: 12px 24px 28px;
+      flex-direction: column;
+      z-index: 999;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    #navMenu.open { display: flex; }
+    #navMenu a {
+      color: rgba(255,255,255,0.75);
+      font-size: 15px;
+      font-weight: 500;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    #navMenu a:last-child { border-bottom: none; }
+    #navMenu a:hover { color: var(--white); }
+    #navMenu .mob-cta {
+      margin-top: 8px;
+      background: var(--accent);
+      color: var(--black) !important;
+      text-align: center;
+      padding: 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      border-bottom: none !important;
+    }
+    #navMenu .mob-cta:hover { background: var(--accent-dark); }
+
+    /* ===== IFRAME ===== */
+    #vitrine-frame {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      right: 0;
+      width: 100%;
+      border: none;
+      display: block;
+      background: #fff;
+    }
+
+    /* ===== BADGE INFERIOR ===== */
+    #badge-wrapper {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 63px;
+      z-index: 500;
+    }
+
+    /* ===== MODAL WHATSAPP ===== */
+    .wa-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.78);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .wa-modal-overlay.open { display: flex; }
+    .wa-modal {
+      background: var(--black-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 36px 28px 28px;
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+    }
+    .wa-modal-icon {
+      width: 56px; height: 56px;
+      background: rgba(34,197,94,0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 26px;
+      color: #22C55E;
+    }
+    .wa-modal-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .wa-modal-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.38);
+      margin-bottom: 24px;
+    }
+    .wa-modal-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 20px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      transition: background 0.2s, border-color 0.2s;
+      text-decoration: none;
+    }
+    .wa-modal-btn:hover { background: #22C55E; border-color: #22C55E; }
+    .wa-modal-btn i { font-size: 20px; color: #22C55E; }
+    .wa-modal-btn:hover i { color: var(--white); }
+    .wa-modal-btn span { flex: 1; text-align: left; }
+    .wa-modal-close {
+      margin-top: 6px;
+      background: none;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.38);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 10px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .wa-modal-close:hover { border-color: rgba(255,255,255,0.28); color: rgba(255,255,255,0.65); }
+
+    /* ===== WHATSAPP FLOAT ===== */
+    .wa-float {
+      position: fixed;
+      bottom: 80px; right: 28px;
+      z-index: 900;
+      width: 52px; height: 52px;
+      background: #22C55E;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(34,197,94,0.36);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      header { height: 64px; padding: 0 20px; }
+      #navMenu { top: 64px; }
+      .wa-float { bottom: 72px; right: 16px; width: 48px; height: 48px; }
+    }
+    @media (max-width: 480px) {
+      header { padding: 0 16px; }
+      .header-logo img { height: 40px; }
+    }
+    @media (max-width: 360px) {
+      .header-logo img { height: 34px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <a href="index.html" class="header-logo">
+    <img src="images/logo.png" alt="VPR Multimarcas">
+  </a>
+  <nav>
+    <a href="index.html#sobre">Sobre</a>
+    <a href="index.html#diferenciais">Diferenciais</a>
+    <a href="index.html#veiculos">Veículos</a>
+    <a href="vitrine.html" class="nav-vitrine-active">Vitrine</a>
+    <a href="index.html#contato" class="nav-cta">Fale conosco</a>
+  </nav>
+  <button class="hamburger" id="menuBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<nav id="navMenu">
+  <a href="index.html#sobre"        onclick="closeMenu()">Sobre</a>
+  <a href="index.html#diferenciais" onclick="closeMenu()">Diferenciais</a>
+  <a href="index.html#veiculos"     onclick="closeMenu()">Veículos</a>
+  <a href="vitrine.html"            onclick="closeMenu()" style="color:var(--accent);font-weight:700;">Vitrine</a>
+  <a href="index.html#contato"      onclick="closeMenu()">Contato</a>
+  <a href="javascript:void(0)" onclick="closeMenu(); openWA('Olá! Gostaria de mais informações sobre os veículos da VPR Multimarcas.');" class="mob-cta">
+    <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+  </a>
+</nav>
+
+<!-- ===== IFRAME VITRINE ===== -->
+<iframe
+  id="vitrine-frame"
+  src="https://vprmultimarca.egestor.com.br/vitrine/"
+  title="Vitrine VPR Multimarcas"
+  allowfullscreen
+></iframe>
+
+<!-- ===== BADGE INFERIOR ===== -->
+<div id="badge-wrapper">
+  <div id="montesite-footer-badge"></div>
+  <script src="https://vaabpicspdbolvutnscp.supabase.co/functions/v1/get-footer-iframe"></script>
+</div>
+
+<!-- ===== MODAL WHATSAPP ===== -->
+<div id="waModal" class="wa-modal-overlay" onclick="closeWAModal(event)">
+  <div class="wa-modal">
+    <div class="wa-modal-icon"><i class="fab fa-whatsapp"></i></div>
+    <div class="wa-modal-title">Falar no WhatsApp</div>
+    <div class="wa-modal-sub">Escolha com qual número deseja falar</div>
+    <a id="waBtn1" href="#" target="_blank" class="wa-modal-btn" onclick="closeWAModal()">
+      <i class="fab fa-whatsapp"></i>
+      <span>(11) 95328-3195</span>
+      <i class="fas fa-arrow-right" style="font-size:12px;color:rgba(255,255,255,0.3);"></i>
+    </a>
+    <a id="waBtn2" href="#" target="_blank" class="wa-modal-btn" onclick="closeWAModal()">
+      <i class="fab fa-whatsapp"></i>
+      <span>(11) 2361-7764</span>
+      <i class="fas fa-arrow-right" style="font-size:12px;color:rgba(255,255,255,0.3);"></i>
+    </a>
+    <button onclick="closeWAModal()" class="wa-modal-close">Fechar</button>
+  </div>
+</div>
+
+<!-- ===== WA FLOAT ===== -->
+<a href="javascript:void(0)" onclick="openWA('Olá! Gostaria de mais informações sobre os veículos da VPR Multimarcas.');" class="wa-float" aria-label="WhatsApp">
+  <svg width="26" height="26" fill="#fff" viewBox="0 0 24 24">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.054 1.49 5.763L.02 23.5l5.891-1.546A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.657-.502-5.178-1.379l-.371-.22-3.496.917.935-3.41-.241-.384A9.936 9.936 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+  </svg>
+</a>
+
+<script>
+  // ===== ALTURA DO IFRAME =====
+  var BADGE_H = 63;
+
+  function setIframeHeight() {
+    var header = document.querySelector('header');
+    var headerH = header ? header.offsetHeight : 80;
+    var frame = document.getElementById('vitrine-frame');
+    frame.style.top = headerH + 'px';
+    frame.style.height = (window.innerHeight - headerH - BADGE_H) + 'px';
+  }
+
+  setIframeHeight();
+  window.addEventListener('resize', setIframeHeight);
+
+  // ===== MENU =====
+  var menuBtn = document.getElementById('menuBtn');
+  var navMenu = document.getElementById('navMenu');
+  menuBtn.addEventListener('click', function() { navMenu.classList.toggle('open'); });
+  function closeMenu() { navMenu.classList.remove('open'); }
+  document.addEventListener('click', function(e) {
+    if (!menuBtn.contains(e.target) && !navMenu.contains(e.target)) navMenu.classList.remove('open');
+  });
+
+  // ===== MODAL WHATSAPP =====
+  function openWA(msg) {
+    var num1 = 'https://wa.me/5511953283195';
+    var num2 = 'https://wa.me/551123617764';
+    var q = msg ? '?text=' + encodeURIComponent(msg) : '';
+    document.getElementById('waBtn1').href = num1 + q;
+    document.getElementById('waBtn2').href = num2 + q;
+    document.getElementById('waModal').classList.add('open');
+  }
+  function closeWAModal(e) {
+    if (!e || e.target === document.getElementById('waModal')) {
+      document.getElementById('waModal').classList.remove('open');
+    }
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeWAModal();
+  });
+</script>
+</body>
+</html>
