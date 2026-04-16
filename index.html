@@ -686,6 +686,88 @@
       .hl-card { padding: 16px; }
       .dif-card { padding: 24px 16px; }
     }
+
+    /* ===== MODAL WHATSAPP ===== */
+    .wa-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.78);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .wa-modal-overlay.open { display: flex; }
+    .wa-modal {
+      background: var(--black-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 36px 28px 28px;
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+    }
+    .wa-modal-icon {
+      width: 56px; height: 56px;
+      background: rgba(34,197,94,0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 26px;
+      color: #22C55E;
+    }
+    .wa-modal-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .wa-modal-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.38);
+      margin-bottom: 24px;
+    }
+    .wa-modal-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 20px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      transition: background 0.2s, border-color 0.2s;
+      text-decoration: none;
+    }
+    .wa-modal-btn:hover { background: #22C55E; border-color: #22C55E; }
+    .wa-modal-btn i { font-size: 20px; color: #22C55E; }
+    .wa-modal-btn:hover i { color: var(--white); }
+    .wa-modal-btn span { flex: 1; text-align: left; }
+    .wa-modal-close {
+      margin-top: 6px;
+      background: none;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.38);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 10px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s;
+    }
+    .wa-modal-close:hover { border-color: rgba(255,255,255,0.28); color: rgba(255,255,255,0.65); }
   </style>
 </head>
 <body>
@@ -711,7 +793,7 @@
   <a href="#diferenciais" onclick="closeMenu()">Diferenciais</a>
   <a href="#veiculos"     onclick="closeMenu()">Veículos</a>
   <a href="#contato"      onclick="closeMenu()">Contato</a>
-  <a href="https://wa.me/5511953283195?text=Olá! Gostaria de mais informações sobre os veículos da VPR Multimarcas." target="_blank" onclick="closeMenu()" class="mob-cta">
+  <a href="javascript:void(0)" onclick="closeMenu(); openWA('Olá! Gostaria de mais informações sobre os veículos da VPR Multimarcas.');" class="mob-cta">
     <i class="fab fa-whatsapp"></i> Falar no WhatsApp
   </a>
 </nav>
@@ -728,7 +810,7 @@
     <h1 class="hero-title">VPR <span class="accent">Multimarcas</span></h1>
     <h2 class="hero-subtitle">Seu próximo veículo está aqui</h2>
     <div class="hero-btns">
-      <a href="https://wa.me/5511953283195?text=Olá! Gostaria de mais informações sobre os veículos da VPR Multimarcas." class="btn-gold" target="_blank">
+      <a href="javascript:void(0)" onclick="openWA('Olá! Gostaria de mais informações sobre os veículos da VPR Multimarcas.');" class="btn-gold">
         <i class="fab fa-whatsapp"></i> Falar no WhatsApp
       </a>
       <a href="#veiculos" class="btn-outline-white">
@@ -871,7 +953,7 @@
       <div class="veic-body">
         <div class="veic-name">Hatchbacks e sedãs</div>
         <div class="veic-desc">Modelos compactos e econômicos das principais marcas nacionais e importadas. Ideais para o dia a dia na cidade.</div>
-        <a href="https://wa.me/5511953283195?text=Olá! Tenho interesse em hatchbacks e sedãs. Podem me ajudar?" class="veic-cta" target="_blank">Consultar <i class="fas fa-arrow-right"></i></a>
+        <a href="javascript:void(0)" onclick="openWA('Olá! Tenho interesse em hatchbacks e sedãs. Podem me ajudar?');" class="veic-cta">Consultar <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
     <div class="veic-card reveal">
@@ -879,7 +961,7 @@
       <div class="veic-body">
         <div class="veic-name">SUVs e crossovers</div>
         <div class="veic-desc">Veículos espaçosos e versáteis para quem busca conforto, segurança e presença nas ruas e estradas.</div>
-        <a href="https://wa.me/5511953283195?text=Olá! Tenho interesse em SUVs e crossovers. Podem me ajudar?" class="veic-cta" target="_blank">Consultar <i class="fas fa-arrow-right"></i></a>
+        <a href="javascript:void(0)" onclick="openWA('Olá! Tenho interesse em SUVs e crossovers. Podem me ajudar?');" class="veic-cta">Consultar <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
     <div class="veic-card reveal">
@@ -887,12 +969,12 @@
       <div class="veic-body">
         <div class="veic-name">Pickups e utilitários</div>
         <div class="veic-desc">Veículos robustos para quem precisa de trabalho e desempenho. Diversas opções de capacidade e equipamentos.</div>
-        <a href="https://wa.me/5511953283195?text=Olá! Tenho interesse em pickups e utilitários. Podem me ajudar?" class="veic-cta" target="_blank">Consultar <i class="fas fa-arrow-right"></i></a>
+        <a href="javascript:void(0)" onclick="openWA('Olá! Tenho interesse em pickups e utilitários. Podem me ajudar?');" class="veic-cta">Consultar <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
   </div>
   <div style="text-align:center; margin-top: 52px;">
-    <a href="https://wa.me/5511953283195?text=Olá! Gostaria de ver o estoque completo de veículos da VPR Multimarcas." class="btn-gold" target="_blank" style="display:inline-flex;">
+    <a href="javascript:void(0)" onclick="openWA('Olá! Gostaria de ver o estoque completo de veículos da VPR Multimarcas.');" class="btn-gold" style="display:inline-flex;">
       <i class="fas fa-car"></i> Ver estoque completo
     </a>
   </div>
@@ -913,7 +995,7 @@
         <div>
           <div class="cc-label">WhatsApp</div>
           <div class="cc-value">
-            <a href="https://wa.me/5511953283195">(11) 95328-3195</a>
+            <a href="javascript:void(0)" onclick="openWA('Olá! Gostaria de mais informações sobre os veículos da VPR Multimarcas.');">(11) 95328-3195 / (11) 2361-7764</a>
           </div>
         </div>
       </div>
@@ -951,7 +1033,7 @@
       </div>
     </div>
     <div class="wa-cta-wrap reveal">
-      <a href="https://wa.me/5511953283195?text=Olá! Gostaria de mais informações sobre os veículos da VPR Multimarcas." class="btn-whatsapp" target="_blank">
+      <a href="javascript:void(0)" onclick="openWA('Olá! Gostaria de mais informações sobre os veículos da VPR Multimarcas.');" class="btn-whatsapp">
         <i class="fab fa-whatsapp" style="font-size:22px;"></i>
         Falar no WhatsApp
       </a>
@@ -980,8 +1062,28 @@
 <div id="montesite-footer-badge"></div>
 <script src="https://vaabpicspdbolvutnscp.supabase.co/functions/v1/get-footer-iframe"></script>
 
+<!-- Modal WhatsApp -->
+<div id="waModal" class="wa-modal-overlay" onclick="closeWAModal(event)">
+  <div class="wa-modal">
+    <div class="wa-modal-icon"><i class="fab fa-whatsapp"></i></div>
+    <div class="wa-modal-title">Falar no WhatsApp</div>
+    <div class="wa-modal-sub">Escolha com qual número deseja falar</div>
+    <a id="waBtn1" href="#" target="_blank" class="wa-modal-btn" onclick="closeWAModal()">
+      <i class="fab fa-whatsapp"></i>
+      <span>(11) 95328-3195</span>
+      <i class="fas fa-arrow-right" style="font-size:12px;color:rgba(255,255,255,0.3);"></i>
+    </a>
+    <a id="waBtn2" href="#" target="_blank" class="wa-modal-btn" onclick="closeWAModal()">
+      <i class="fab fa-whatsapp"></i>
+      <span>(11) 2361-7764</span>
+      <i class="fas fa-arrow-right" style="font-size:12px;color:rgba(255,255,255,0.3);"></i>
+    </a>
+    <button onclick="closeWAModal()" class="wa-modal-close">Fechar</button>
+  </div>
+</div>
+
 <!-- WhatsApp flutuante -->
-<a href="https://wa.me/5511953283195" class="wa-float" target="_blank" aria-label="WhatsApp">
+<a href="javascript:void(0)" onclick="openWA('Olá! Gostaria de mais informações sobre os veículos da VPR Multimarcas.');" class="wa-float" aria-label="WhatsApp">
   <svg width="28" height="28" fill="#fff" viewBox="0 0 24 24">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
     <path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.054 1.49 5.763L.02 23.5l5.891-1.546A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.657-.502-5.178-1.379l-.371-.22-3.496.917.935-3.41-.241-.384A9.936 9.936 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
@@ -996,6 +1098,26 @@
   function closeMenu() { navMenu.classList.remove('open'); }
   document.addEventListener('click', (e) => {
     if (!menuBtn.contains(e.target) && !navMenu.contains(e.target)) navMenu.classList.remove('open');
+  });
+
+  // ===== MODAL WHATSAPP =====
+  function openWA(msg) {
+    var num1 = 'https://wa.me/5511953283195';
+    var num2 = 'https://wa.me/551123617764';
+    var q = msg ? '?text=' + encodeURIComponent(msg) : '';
+    document.getElementById('waBtn1').href = num1 + q;
+    document.getElementById('waBtn2').href = num2 + q;
+    document.getElementById('waModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeWAModal(e) {
+    if (!e || e.target === document.getElementById('waModal')) {
+      document.getElementById('waModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeWAModal();
   });
 
   // ===== REVEAL =====
